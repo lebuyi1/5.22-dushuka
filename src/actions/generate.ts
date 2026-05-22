@@ -14,7 +14,7 @@ export async function generateContent(
     const prompt = getPromptByType(storeInfo.type, storeInfo);
 
     const completion = await openai.chat.completions.create({
-      model: "mimo-v2.5-pro",
+      model: "mimo-v2.5",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: prompt },

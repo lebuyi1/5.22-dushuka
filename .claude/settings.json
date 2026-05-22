@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s --connect-timeout 10 -o /dev/null -w \"%{http_code}\" \"https://rvg-app.vercel.app\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command '$env:PATH = \"d:\\\\lebuyi\\\\nodejs\\\\node-v22.16.0-win-x64;\" + $env:PATH; npm install -g wrangler')",
+      "Bash(curl -s --connect-timeout 10 -o /dev/null -w \"%{http_code}\" \"https://pages.dev\")",
+      "Bash(curl -s --connect-timeout 10 -o /dev/null -w \"%{http_code}\" \"https://www.netlify.com\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command '$env:PATH = \"d:\\\\lebuyi\\\\nodejs\\\\node-v22.16.0-win-x64;\" + $env:PATH; npm install -g netlify-cli')",
+      "Bash(curl -s --connect-timeout 10 -o /dev/null -w \"%{http_code}\" \"https://rvg-app.netlify.app\")",
+      "Bash(curl -s -X POST https://token-plan-cn.xiaomimimo.com/v1/chat/completions -H 'Authorization: Bearer tp-c890ei6lnzy97sorsr6whdlntjuibljisf9bn5hnwbug7yys' -H 'Content-Type: application/json' -d '{\"model\":\"mimo-v2.5\",\"messages\":[{\"role\":\"user\",\"content\":\"你好\"}],\"max_tokens\":100}')",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command ' *)"
+    ]
+  }
+}

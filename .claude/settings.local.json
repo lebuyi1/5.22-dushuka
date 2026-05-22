@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(git init *)",
-      "Bash(gh auth *)"
+      "Bash(gh auth *)",
+      "Bash(curl -s -X POST https://token-plan-cn.xiaomimimo.com/v1/chat/completions -H 'Authorization: Bearer tp-c890ei6lnzy97sorsr6whdlntjuibljisf9bn5hnwbug7yys' -H 'Content-Type: application/json' -d '{\"model\":\"mimo-v2.5\",\"messages\":[{\"role\":\"user\",\"content\":\"输出JSON: {\\\\\"a\\\\\":1}\"}],\"max_tokens\":100,\"response_format\":{\"type\":\"json_object\"}}')",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command ' *)",
+      "Bash(npx netlify *)",
+      "Bash(npm install *)",
+      "Bash(powershell.exe -NoProfile -Command '$token = \"nfp_yrdb2V3GF9nVSyzZoskVNxPo32d4kAtN161c\"; $headers = @{Authorization = \"Bearer $token\"}; $siteId = \"939f94e7-b176-4345-9706-6a582bead7c8\"; $body = @{value = \"https://knwgucirzhrbrjxehzfj.supabase.co\"} | ConvertTo-Json; try { $result = Invoke-RestMethod -Uri \"https://api.netlify.com/api/v1/sites/$siteId/env/NEXT_PUBLIC_SUPABASE_URL\" -Headers $headers -Method PUT -Body $body -ContentType \"application/json\"; Write-Host \"SUCCESS\"; Write-Host \\($result | ConvertTo-Json -Depth 3\\) } catch { Write-Host \"Error: $\\($_.Exception.Message\\)\"; if \\($_.Exception.Response\\) { Write-Host \"StatusCode: $\\($_.Exception.Response.StatusCode.value__\\)\" } }')",
+      "Bash(powershell.exe -NoProfile -Command '$token = \"nfp_yrdb2V3GF9nVSyzZoskVNxPo32d4kAtN161c\"; $headers = @{Authorization = \"Bearer $token\"}; $siteId = \"939f94e7-b176-4345-9706-6a582bead7c8\"; $body = @{key = \"NEXT_PUBLIC_SUPABASE_URL\"; value = \"https://knwgucirzhrbrjxehzfj.supabase.co\"; scopes = @\\(\"builds\", \"functions\"\\)} | ConvertTo-Json; try { $result = Invoke-RestMethod -Uri \"https://api.netlify.com/api/v1/sites/$siteId/env\" -Headers $headers -Method POST -Body $body -ContentType \"application/json\"; Write-Host \"SUCCESS\"; Write-Host \\($result | ConvertTo-Json -Depth 5\\) } catch { Write-Host \"Error: $\\($_.Exception.Message\\)\"; if \\($_.Exception.Response\\) { Write-Host \"StatusCode: $\\($_.Exception.Response.StatusCode.value__\\)\" } }')",
+      "Bash(powershell.exe -NoProfile -Command '& \"d:\\\\lebuyi\\\\nodejs\\\\node-v22.16.0-win-x64\\\\npx.cmd\" netlify-cli env:set NEXT_PUBLIC_SUPABASE_URL \"https://knwgucirzhrbrjxehzfj.supabase.co\" --site 939f94e7-b176-4345-9706-6a582bead7c8 2>&1')",
+      "Bash(powershell.exe -NoProfile -Command '$token = \"nfp_yrdb2V3GF9nVSyzZoskVNxPo32d4kAtN161c\"; $headers = @{Authorization = \"Bearer $token\"}; $siteId = \"939f94e7-b176-4345-9706-6a582bead7c8\"; $body = @{value = \"https://knwgucirzhrbrjxehzfj.supabase.co\"} | ConvertTo-Json; try { $result = Invoke-RestMethod -Uri \"https://api.netlify.com/api/v1/sites/$siteId/env/NEXT_PUBLIC_SUPABASE_URL\" -Headers $headers -Method POST -Body $body -ContentType \"application/json\"; Write-Host \"SUCCESS\"; Write-Host \\($result | ConvertTo-Json -Depth 5\\) } catch { Write-Host \"Error: $\\($_.Exception.Message\\)\"; if \\($_.Exception.Response\\) { Write-Host \"StatusCode: $\\($_.Exception.Response.StatusCode.value__\\)\" } }')"
     ]
   }
 }
