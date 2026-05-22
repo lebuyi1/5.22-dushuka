@@ -2,24 +2,44 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { HistoryItem } from "@/components/history-item";
 import { getHistoryList, deleteGeneration } from "@/actions/history";
-import { ArrowLeft, Sparkles, Loader2 } from "lucide-react";
+import { verifyKey } from "@/actions/keys";
+import { ArrowLeft, Sparkles, Loader2, LogOut } from "lucide-react";
 import type { GenerationRecord, StoreRecord } from "@/lib/types";
 
 // 历史记录页面
 export default function HistoryPage() {
+  const router = useRouter();
   const [records, setRecords] = React.useState<
     (GenerationRecord & { store: StoreRecord })[]
   >([]);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [isAuth, setIsAuth] = React.useState(false);
+  const [checkingAuth, setCheckingAuth] = React.useState(true);
+
+  // 检查登录状态
+  React.useEffect(() => {
+    const savedKey = localStorage.getItem("access_key");
+    if (!savedKey) {
+      router.push("/login");
+      return;
+    }
+    verifyKey(savedKey).then((res) => {
+      if (res.success && res.data?.valid) {
+        setIsAuth(true);
+        loadHistory();
+      } else {
+        localStorage.removeItem("access_key");
+        router.push("/login");
+      }
+      setCheckingAuth(false);
+    });
+  }, [router]);
 
   // 加载历史记录
-  React.useEffect(() => {
-    loadHistory();
-  }, []);
-
   const loadHistory = async () => {
     setIsLoading(true);
     try {
@@ -46,6 +66,24 @@ export default function HistoryPage() {
     }
   };
 
+  // 退出登录
+  const handleLogout = () => {
+    localStorage.removeItem("access_key");
+    router.push("/login");
+  };
+
+  // 加载中
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  // 未登录
+  if (!isAuth) return null;
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 顶部导航 */}
@@ -59,12 +97,17 @@ export default function HistoryPage() {
             </Link>
             <h1 className="text-base font-medium">历史记录</h1>
           </div>
-          <Link href="/generate">
-            <Button variant="accent" size="sm">
-              <Sparkles className="h-4 w-4 mr-1" />
-              新建
+          <div className="flex items-center gap-1">
+            <Link href="/generate">
+              <Button variant="accent" size="sm">
+                <Sparkles className="h-4 w-4 mr-1" />
+                新建
+              </Button>
+            </Link>
+            <Button variant="ghost" size="sm" onClick={handleLogout}>
+              <LogOut className="h-4 w-4" />
             </Button>
-          </Link>
+          </div>
         </div>
       </header>
 

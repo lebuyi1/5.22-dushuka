@@ -1,9 +1,34 @@
+"use client";
+
+import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Sparkles, History, ArrowRight } from "lucide-react";
+import { verifyKey } from "@/actions/keys";
+import { Sparkles, History, ArrowRight, KeyRound } from "lucide-react";
 
 // 首页
 export default function HomePage() {
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  React.useEffect(() => {
+    const savedKey = localStorage.getItem("access_key");
+    if (savedKey) {
+      verifyKey(savedKey).then((res) => {
+        setIsLoggedIn(res.success && res.data?.valid === true);
+      });
+    }
+  }, []);
+
+  const handleMainAction = () => {
+    if (isLoggedIn) {
+      router.push("/generate");
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-6 bg-gradient-to-b from-white to-gray-50">
       {/* Logo 和标题 */}
@@ -33,19 +58,30 @@ export default function HomePage() {
 
         {/* CTA 按钮 */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-          <Link href="/generate">
-            <Button variant="accent" size="lg" className="w-full sm:w-auto">
-              <Sparkles className="mr-2 h-4 w-4" />
-              开始生成
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="/history">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-              <History className="mr-2 h-4 w-4" />
-              历史记录
-            </Button>
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <Link href="/generate">
+                <Button variant="accent" size="lg" className="w-full sm:w-auto">
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  开始生成
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/history">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  <History className="mr-2 h-4 w-4" />
+                  历史记录
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Button variant="accent" size="lg" className="w-full sm:w-auto" onClick={handleMainAction}>
+                <KeyRound className="mr-2 h-4 w-4" />
+                输入密钥使用
+              </Button>
+            </>
+          )}
         </div>
       </div>
 
